@@ -3,3 +3,4 @@ server/secrets.json
 server/secrets.js
 server/secrets
 dist/
+dbutils/original_db.sql
