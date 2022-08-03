@@ -6,7 +6,7 @@ export const ResidentDetails = (props) => {
   console.log(props.user);
   for (const key in props.user) {
     if (key !== 'id') {
-      if (key === 'hiring-roles') {
+      if (key === 'hiringroles') {
         continue;
       } else if (props.user[key] === '') {
         if (key === 'name') {

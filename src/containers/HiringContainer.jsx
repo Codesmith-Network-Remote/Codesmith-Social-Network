@@ -63,6 +63,18 @@ export const HiringContainer = (props) => {
     }
   }
 
+  function deleteHiringRole(idx) {
+    console.log('Deleting role idx = ', idx)
+    console.log('Before deletion: ', user.hiringroles)
+    let newHiringroles = [...user.hiringroles];
+    newHiringroles.splice(idx, 1);
+    console.log('After deletion: ', newHiringroles)
+    setUser({
+      ...user,
+      hiringroles: newHiringroles,
+    });
+  }
+
   function incrementNewroles() {
     setNewroles(newroles.concat(''));
   }
@@ -97,7 +109,7 @@ export const HiringContainer = (props) => {
       <div className="ResidentsProfile">
         <ResidentBox photo={userIcon.photo} name={userIcon.name}/>
       </div>
-      <HiringDetails user={user} newroles={newroles} changeNewrole={changeNewrole} incrementNewroles={incrementNewroles} changeAuthenticated={props.changeAuthenticated} saveFunction={saveFunction} changeInput={changeInput}/>
+      <HiringDetails user={user} newroles={newroles} deleteHiringRole={deleteHiringRole} changeNewrole={changeNewrole} incrementNewroles={incrementNewroles} changeAuthenticated={props.changeAuthenticated} saveFunction={saveFunction} changeInput={changeInput}/>
     </div>
   );
 };
