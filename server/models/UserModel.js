@@ -3,7 +3,8 @@ const { PG_URI } = require('../secrets');
 
 //Object with connectionString to our postgresURL
 const pool = new Pool({
-  connectionString: PG_URI
+  connectionString: PG_URI,
+  max: 4,
 });
 
 //Export object with query method
