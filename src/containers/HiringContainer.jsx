@@ -19,7 +19,7 @@ export const HiringContainer = (props) => {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(`setting user to: ${JSON.stringify(res)}`)
+        console.log(`setting user to: ${JSON.stringify(res)}`);
         setUser(res);
         return res;
       })

@@ -13,7 +13,7 @@ module.exports = {
     console.log('Query: ', text);
     return pool.query(text, params, callback);
   }
-}
+};
 
 
 
