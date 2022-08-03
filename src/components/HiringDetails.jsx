@@ -21,7 +21,7 @@ export const HiringDetails = (props) => {
   }
 
   let newElems = [];
-  if (newroles && newroles.length) {
+  if (newroles && newroles.length && !(elems.length === 1 && hiringroles[0] === '')) {
     newElems = newroles.map((e, i) => (
       <div className="HiringInputItem" key={`newrole-${i}`}>
         <input
