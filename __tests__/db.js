@@ -93,4 +93,4 @@
 //       const text = `DELETE FROM residents WHERE id=${req.body.id}`;
 
   
-  module.exports = userControllers;
+//   module.exports = userControllers;
