@@ -67,13 +67,26 @@ export const UserContainer = (props) => {
       .then(changeSaved(true));
   }
 
+  function deleteFunction() {
+    console.log(user);
+    fetch('http://localhost:8080/residents/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: document.cookie.split('; userId=')[1],
+        user: user,
+      })
+    })
+      .then(changeSaved(true));
+  }
+
   console.log(user);
   return (
     <div className="UserContainer">
       <div className="ResidentsProfile">
         <ResidentBox photo={userIcon.photo} name={userIcon.name}/>
       </div>
-      <ResidentDetails user={user} changeAuthenticated={props.changeAuthenticated} saveFunction={saveFunction} changeInput={changeInput}/>
+      <ResidentDetails user={user} changeAuthenticated={props.changeAuthenticated} saveFunction={saveFunction} deleteFunction={deleteFunction} changeInput={changeInput}/>
     </div>
   );
 };
