@@ -14,15 +14,12 @@ export const OutcomeVis = (props) => {
       indLabels.push(outcomeInds[i].industry);
     }
   }
-  // const orgLabels = outcomeOrgs.map((elem) => elem.organization);
-  // const orgLabels = [...outcomeOrgs]
-  // const indLabels = outcomeInds.map((elem) => elem.industry);
 
   const orgChart = {
     labels: orgLabels,
     datasets: [{
       label: 'Alumni Outcomes By Organization',
-      backgroundColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'coral',
       borderColor: 'white',
       data: outcomeOrgs
     }]
@@ -32,7 +29,7 @@ export const OutcomeVis = (props) => {
     labels: indLabels,
     datasets: [{
       label: 'Alumni Outcomes By Industry',
-      backgroundColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'blue',
       borderColor: 'white',
       data: outcomeInds
     }]
