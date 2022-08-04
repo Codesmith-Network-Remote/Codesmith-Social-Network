@@ -15,6 +15,10 @@ const verifyRouter = require('./routes/verifyRouter');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const keys = require('./secrets');
+const {
+  createUser,
+  verifyUserExists,
+} = require('./controllers/UserControllers');
 
 passport.use(
   new GitHubStrategy(
@@ -23,13 +27,11 @@ passport.use(
       clientSecret: keys.github.CLIENT_SECRET,
       callbackURL: 'http://localhost:8080/auth/github/callback',
     },
-    (accessToken, refreshToken, profile, cb) => {
-      // UserModel.findOrCreate({ githubId: profile.id }, function (err, user) {
-      //   return cb(err, user);
-      // });
-      // verifyUserExists,
-      // createUser,
-      return cb, '999';
+    (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      console.log(accessToken);
+      console.table({accessToken, refreshToken, profile, done});
+      return(done );
     }
   )
 );
@@ -58,10 +60,11 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
-  // MO CALLBACKS
-
-  function (req, res) {
+  (req, res) => {
     // Successful authentication, redirect home.
+    console.log(
+      'this is coming from inside the get request and passport.authenticate in serverjs'
+    );
     res.redirect('/');
   }
 );

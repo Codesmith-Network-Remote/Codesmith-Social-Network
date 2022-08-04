@@ -42,7 +42,5 @@ export const LandingPage = (props) => {
       {/* <button className="githubLogin" onClick={() => parent.open(`https://github.com/login/oauth/authorize/?client_id=${GH_CLIENT_ID}&redirect_url=${REDIRECT_URI}&="A9Sd.udf8-d1"&=${GH_SCOPE}`)}>Github Login</button> */}
       <a href='/auth/github'>Github Login WOOOHOOOO</a>
     </div>
-
-    // PRETEND THIS IS A BUTTON FOR GITHUB
   );
 };
