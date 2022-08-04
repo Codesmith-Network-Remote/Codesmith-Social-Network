@@ -614,3 +614,59 @@ body {
   color: white;
   background-color: #213045;
 }
+
+.LookingPage {
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .LookingBox {
+    padding: 2vw;
+    height: 85vh;
+    width: 90%;
+    min-height: 240px;
+    min-width: 240px;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    
+  
+    border-style: none;
+    border-radius: 10px;
+  
+    color: rgb(48, 48, 48);
+    background-color: rgb(230, 230, 230);
+    box-shadow: 0px 10px 10px rgb(170, 175, 185);
+    h3 {
+      margin: 0 auto 2rem auto;
+    }
+  }
+}
+
+.LookingTable {
+  width: 90%;
+  margin-bottom: 1rem;
+
+  tr:nth-child(even) {
+    background-color: whitesmoke;
+  }
+  
+  tr:nth-child(odd) {
+    background-color:aliceblue;
+  }
+
+  th {
+    background-color: #008dd3;
+    color: white;
+
+  }
+  th, td {
+    padding: 5px 10px;
+    text-align: left;
+  }
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
