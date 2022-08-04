@@ -1,1 +1,5 @@
 node_modules
+server/secrets.json
+server/secrets.js
+server/secrets
+dist/

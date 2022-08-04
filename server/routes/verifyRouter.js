@@ -1,13 +1,17 @@
 const { Router } = require('express');
 const { route } = require('../server');
-const { exchangeCode, userComplete} = require('../controllers/oauthController');
+const {
+  exchangeCode,
+  userComplete,
+} = require('../controllers/oauthController');
 
 const router = Router();
 
-router.get('/',
+router.get(
+  '/',
   (req, res, next) => {
     console.log(req.cookies);
-    return next()
+    return next();
   },
   exchangeCode,
   (req, res) => {
@@ -17,7 +21,6 @@ router.get('/',
 
 router.get('/complete', userComplete, (req, res) => {
   return res.status(200).json(res.locals.complete);
-}
-);
+});
 
 module.exports = router;

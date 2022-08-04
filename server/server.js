@@ -11,14 +11,38 @@ const organizationRouter = require('./routes/organization');
 const cohortRouter = require('./routes/cohort');
 const oauthRouter = require('./routes/oauthRouter');
 const verifyRouter = require('./routes/verifyRouter');
+// const githubMiddleware = require('./routes/githubMiddleware');
+const passport = require('passport');
+const GitHubStrategy = require('passport-github2').Strategy;
+const keys = require('./secrets');
+const {
+  createUser,
+  verifyUserExists,
+} = require('./controllers/UserControllers');
+
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: keys.github.CLIENT_ID,
+      clientSecret: keys.github.CLIENT_SECRET,
+      callbackURL: 'http://localhost:8080/auth/github/callback',
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      console.log(accessToken);
+      console.table({accessToken, refreshToken, profile, done});
+      return(done );
+    }
+  )
+);
 
 // const server = https.createServer({ key, cert }, app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({origin: 'http://localhost:8080'}));
-
+app.use(cors({ origin: 'http://localhost:8080' }));
+// const passportSetup =
 app.use('/residents', residentRouter);
 
 app.use('/organizations', organizationRouter);
@@ -29,6 +53,26 @@ app.use('/login', oauthRouter);
 
 app.use('/verifyuser', verifyRouter);
 
+// app.use('/auth', githubMiddleware);
+
+app.get('/auth/github', passport.authenticate('github'));
+
+app.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/' }),
+  (req, res) => {
+    // Successful authentication, redirect home.
+    console.log(
+      'this is coming from inside the get request and passport.authenticate in serverjs'
+    );
+    res.redirect('/');
+  }
+);
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../src/', 'index.html'));
+});
+
 // Once we have React router working, this will keep the page from breaking if you're not on the homepage.
 app.get('/*', (req, res) => {
   return res.status(200).redirect('/');
@@ -37,17 +81,15 @@ app.get('/*', (req, res) => {
 // catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => res.sendStatus(404));
 
-
-
 // global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,
-    message: { err: 'An error occurred' }, 
+    message: { err: 'An error occurred' },
   };
 
-  const errorObj = Object.assign(defaultErr, err); 
+  const errorObj = Object.assign(defaultErr, err);
   console.log(errorObj.log);
 
   res.status(errorObj.status).send(errorObj.message);

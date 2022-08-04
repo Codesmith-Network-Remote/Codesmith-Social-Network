@@ -1,3 +1,4 @@
+/*  */
 const { CLIENT_SECRET } = require('../secrets.js');
 const db = require('../models/UserModel');
 
@@ -84,7 +85,7 @@ oauthController.userComplete = async (req, res, next) => {
     res.locals.complete = complete;
     return next();
   } catch (err) {
-    return next({log: 'Error caight in userComplete' });
+    return next({log: 'Error caught in userComplete' });
   }
 };
 // handle getting basic profile info
