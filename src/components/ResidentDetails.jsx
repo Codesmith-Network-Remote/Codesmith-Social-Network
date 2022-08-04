@@ -2,11 +2,13 @@ import React, { Component, useState } from 'react';
 
 export const ResidentDetails = (props) => {
   
-  const elems = [];
+  const elems = []; 
   console.log(props.user);
   for (const key in props.user) {
     if (key !== 'id') {
-      if (props.user[key] === '') {
+      if (key === 'hiringroles') {
+        continue;
+      } else if (props.user[key] === '') {
         if (key === 'name') {
           elems.push(<input placeholder="Set Name Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
         } else if (key === 'email') {
@@ -19,7 +21,7 @@ export const ResidentDetails = (props) => {
           elems.push(<input placeholder="Set Organization Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
         } else if (key === 'message') {
           elems.push(<input placeholder="Set Message Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
-        }
+        } 
       } else {
         elems.push(<input value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
       }
@@ -30,6 +32,13 @@ export const ResidentDetails = (props) => {
     <div className="ResidentDetails">
       {elems}
       <button className="SaveButton" onClick={props.saveFunction}>Save</button>
+      <button className="DeleteButton" onClick={() => {
+        props.deleteFunction();
+        document.cookie = 'userId=0; path=/; max-age=0;';
+        document.cookie = 'linkedInAuthCode=0; path=/; max-age=0;';
+        props.changeAuthenticated(false);
+      }
+      }>Delete</button>
       <button className="LogOutButton" onClick={() => {
         document.cookie = 'userId=0; path=/; max-age=0;';
         document.cookie = 'linkedInAuthCode=0; path=/; max-age=0;';

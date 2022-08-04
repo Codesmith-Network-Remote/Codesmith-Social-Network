@@ -1,0 +1,11 @@
+Table residents {
+  id int [pk, increment, not null]
+  name varchar [not null]
+  photo varchar
+  cohort varchar [not null]
+  organization varchar
+  industry varchar
+  linkedin varchar [not null]
+  message varchar
+  email varchar
+}

@@ -1,5 +1,4 @@
 const db = require('../models/UserModel');
-const { PG_URI } = require('../secrets');
 
 const userControllers = {};
 
@@ -175,10 +174,12 @@ userControllers.updateUser = async (req, res, next) => {
       cohort,
       organization,
       linkedin, 
-      email
+      email,
+      hiringroles,
     } = req.body.user;
     const values = [name, photo, cohort, organization, linkedin];
-    const text = `UPDATE residents SET name='${name}', photo='${photo}', cohort='${cohort}', organization='${organization}', linkedin='${linkedin}', email='${email}' WHERE id='${req.body.id}'`;
+    console.log(hiringroles.join(', '));
+    const text = `UPDATE residents SET name='${name}', photo='${photo}', cohort='${cohort}', organization='${organization}', linkedin='${linkedin}', email='${email}', hiringroles=ARRAY['${hiringroles.join('\', \'')}'] WHERE id='${req.body.id}' RETURNING *`;
     const updatedUser = await db.query(text);
     res.locals.updatedUser = updatedUser;
     return next();

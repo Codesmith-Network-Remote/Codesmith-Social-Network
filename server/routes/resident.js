@@ -21,7 +21,7 @@ router.post('/id', userControllers.findUserById, (req, res) => {
 });
 
 router.post('/update', userControllers.updateUser, (req, res) => {
-  return res.status(200);
+  return res.status(200).json(res.locals.updatedUser);
 });
 
 router.post('/delete', userControllers.deleteUser, (req, res) => {
