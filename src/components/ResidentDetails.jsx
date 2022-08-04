@@ -6,7 +6,9 @@ export const ResidentDetails = (props) => {
   console.log(props.user);
   for (const key in props.user) {
     if (key !== 'id') {
-      if (props.user[key] === '') {
+      if (key === 'hiringroles') {
+        continue;
+      } else if (props.user[key] === '') {
         if (key === 'name') {
           elems.push(<input placeholder="Set Name Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
         } else if (key === 'email') {
@@ -19,7 +21,7 @@ export const ResidentDetails = (props) => {
           elems.push(<input placeholder="Set Organization Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
         } else if (key === 'message') {
           elems.push(<input placeholder="Set Message Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
-        }
+        } 
       } else {
         elems.push(<input value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
       }
