@@ -19,8 +19,9 @@ export const LandingPage = (props) => {
   return (
     <div className="LandingPage">
       <img id='codesmithImg' src="https://miro.medium.com/max/1200/1*aqCqaO8ALzYczUHe_3g3Gw.jpeg" alt="Codesmith Logo"></img>
-      <span className="LandingText">Welcome to the <br /> Codesmith Resident's & Alumni Portal <br /></span>
+      <span className="LandingText">{'Welcome to the <br /> Codesmith Resident\'s & Alumni Portal'}<br /></span>
       <button className="LogInButton" onClick={() => parent.open(`https://www.linkedin.com/oauth/v2/authorization/?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state="A9Sd.udf8-d1"&scope=${SCOPE}`)}></button>
+      <form action='/auth/github'> <input type="submit" value="Sign in with GitHub"/></form>
     </div>
   );
 };

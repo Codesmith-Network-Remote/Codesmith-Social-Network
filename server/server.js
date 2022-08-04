@@ -11,19 +11,96 @@ const organizationRouter = require('./routes/organization');
 const cohortRouter = require('./routes/cohort');
 const oauthRouter = require('./routes/oauthRouter');
 const verifyRouter = require('./routes/verifyRouter');
+const passport = require('passport');
+const GitHubStrategy = require('passport-github2').Strategy;
+const session = require('express-session');
+
+const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require('./secrets');
+
+const db = require('./models/UserModel');
 
 // const server = https.createServer({ key, cert }, app);
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+
+passport.use(new GitHubStrategy({
+  clientID: GITHUB_CLIENT_ID,
+  clientSecret: GITHUB_CLIENT_SECRET,
+  callbackURL: 'http://localhost:8080/auth/github/callback'
+},
+function(accessToken, refreshToken, profile, done) {
+  console.log(profile);
+  const user = { gh_profile: profile._json.html_url, email: profile._json.email, name: profile._json.name, gh_organization: profile._json.company, gh_login: profile._json.login};
+  console.table(user);
+  // userControllers.verifyUserExists({})
+  githubFindOrCreate(user, function (err, user) {
+    return done(err, user);
+  });
+}));
+
+
+const  githubFindOrCreate = async (user, callback) => {
+
+  const gh_login = user.gh_login;
+  const text = 'SELECT id FROM residents WHERE gh_login = $1';
+  // let shouldSkipCreateUser = undefined;
+
+  try {
+    const idFound = await db.query(text, [gh_login]);
+    if (idFound.rows.length) {
+      console.log('We found an id',idFound.rows[0]);
+      return callback(null, idFound.rows[0]);
+      // cookie('userId', idFound.rows[0].id);
+    } else {
+      console.log('No such user exists. Creating one');
+      // shouldSkipCreateUser = false;
+      const values = [user.name, '', '', '', '', '', '', user.gh_login, user.gh_profile];
+      const text = 'INSERT INTO residents (name, photo, cohort, organization, linkedin, message, email, gh_login, gh_profile) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+      await db.query(text, values);
+      const userCreated = await db.query('SELECT id FROM residents ORDER BY id DESC LIMIT 1');
+      console.log(userCreated.rows[0].id);
+  
+      // res.cookie('userId', userCreated.rows[0].id);
+      
+      return callback(null, userCreated.rows[0]);
+
+    } 
+  } catch (error) {
+    return callback({ log: `userControllers.verifyUserExists error: ${error}`, message: 'Erorr found @ userControllers.VerifyUserExists' });
+  }
+
+  return callback({ log: 'githubFindOrCreate error: unknown error', message: 'Fell through try/catch without successfully calling done()'});
+};
+
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/failedlogin');
+}
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({origin: 'http://localhost:8080'}));
+// app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+// app.use(passport.session());
 
-app.use('/residents', residentRouter);
 
-app.use('/organizations', organizationRouter);
+app.use('/residents', ensureAuthenticated, residentRouter);
 
-app.use('/cohort', cohortRouter);
+app.use('/organizations', ensureAuthenticated, organizationRouter);
+
+app.use('/cohort', ensureAuthenticated, cohortRouter);
 
 app.use('/login', oauthRouter);
 
@@ -33,6 +110,22 @@ app.use('/verifyuser', verifyRouter);
 app.get('/', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../src/', 'index.html'));
 });
+
+app.get('/failedlogin', (req, res) => {
+  res.status(401).sendFile(path.resolve(__dirname, '../src/', 'failedlogin.html'));
+});
+
+
+app.get('/auth/github',
+  passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+app.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/failedlogin' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
 
 // Serve bundle.js
 app.get('/dist/bundle.js', (req, res) => {

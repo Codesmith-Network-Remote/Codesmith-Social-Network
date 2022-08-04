@@ -8,5 +8,7 @@ CREATE TABLE "residents" (
   "linkedin" varchar NOT NULL,
   "message" varchar,
   "email" varchar,
+  "gh_login" varchar,
+  "gh_profile" varchar,
   "hiringroles" character varying[] default '{}'::character varying[]
 );

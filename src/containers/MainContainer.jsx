@@ -33,6 +33,8 @@ export default function MainContainer() {
           console.log(res);
           if (res.status === 200) changeAuthenticated(true);
         });
+    } else if (getCookie('connect.sid')) {
+      changeAuthenticated(true);
     } else {
       changeAuthenticated(false);
     }

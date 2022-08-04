@@ -49,6 +49,14 @@ module.exports = {
         target: 'http://localhost:3000/',
         secure: false,
       },
+      '/auth': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/failedlogin': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
   },
   plugins: [
