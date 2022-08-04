@@ -5,7 +5,7 @@ const cors = require('cors');
 // const https = require('https');
 const cookieParser = require('cookie-parser');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.EXPRESS_PORT || 3000;
 const residentRouter = require('./routes/resident');
 const organizationRouter = require('./routes/organization');
 const cohortRouter = require('./routes/cohort');
@@ -28,6 +28,16 @@ app.use('/cohort', cohortRouter);
 app.use('/login', oauthRouter);
 
 app.use('/verifyuser', verifyRouter);
+
+// Serve index.html
+app.get('/', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../src/', 'index.html'));
+});
+
+// Serve bundle.js
+app.get('/dist/bundle.js', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../dist/', 'bundle.js'));
+});
 
 // Once we have React router working, this will keep the page from breaking if you're not on the homepage.
 app.get('/*', (req, res) => {
@@ -54,8 +64,8 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-app.listen(PORT, () => {
+
+
+module.exports = app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
-
-module.exports = app;
