@@ -5,7 +5,7 @@ const cors = require('cors');
 // const https = require('https');
 const cookieParser = require('cookie-parser');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.EXPRESS_PORT || 3000;
 const residentRouter = require('./routes/resident');
 const organizationRouter = require('./routes/organization');
 const cohortRouter = require('./routes/cohort');
@@ -54,8 +54,8 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-app.listen(PORT, () => {
+
+
+module.exports = app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
-
-module.exports = app;

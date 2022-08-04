@@ -14,7 +14,9 @@
     "url": "git+https://github.com/nekrug/deer-lab-site.git"
   },
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "globalSetup": "./jest-setup.js",
+    "globalTeardown": "./jest-teardown.js"
   },
   "author": "Nick Krug",
   "license": "ISC",
@@ -42,6 +44,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@types/jest": "^28.1.6",
+    "assert": "^2.0.0",
     "autoprefixer": "^10.4.7",
     "babel-jest": "^28.1.3",
     "babel-loader": "^8.2.3",
