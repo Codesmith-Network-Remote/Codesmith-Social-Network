@@ -9,20 +9,11 @@ export const OutcomeContainer = (props) => {
   useEffect(() => {
     fetch('http://localhost:8080/outcomes')
       .then(res => res.json())
-      .then(res => { 
-        setOrgList(res.orgs); 
+      .then(res => {
+        console.log('outcomes response', res);
+        setOrgList(res.orgs);
         setIndList(res.industries); });
   }, []);
-
-  // const orgs = {};
-  // const inds = {};
-  // for (let i = 0; i < orgList.length; i++) {
-  //   orgs[orgList[i].organization] = orgList[i].count;
-  // }
-  // for (let i = 0; i < orgList.length; i++) {
-  //   inds[indList[i].industry] = indList[i].count;
-  // }
-  // console.log('orgList for OutcomeContainer', orgs);
 
   return (
     <div className="CohortPage">
