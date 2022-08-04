@@ -54,13 +54,13 @@ export const SetCohort = (props) => {
             {cohortNums}
           </select>
           <div className='lineTitle'> Organization:&nbsp;
-            <p id="emptyOrg">Leave empty if you are currently unemployed</p>
-            <input id="orgSelect" placeholder='Insert organization name...' value={orgValue} onChange={(e) => changeOrg(e.target.value)}></input>
+            {/* <p id="emptyOrg">Leave empty if you are currently unemployed</p> */}
+            <input id="orgSelect" placeholder='Insert organization name if applicable' value={orgValue} onChange={(e) => changeOrg(e.target.value)}></input>
             <div></div>
           </div>
           <div className='lineTitle'> Industry:&nbsp;
             <select name="industrySelect" id="industrySelect" value={industryValue} onChange={(e) => changeIndustry(e.target.value)}>
-              <option>Select an industry if applicable</option>
+              <option selected disabled>Select an industry if applicable</option>
               <option value="Software Engineer">Software Engineer</option>
               <option value="Hardware Engineer">Hardware Engineer</option>
               <option value="Data Science">Data Science</option>

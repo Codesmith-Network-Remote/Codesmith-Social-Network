@@ -16,23 +16,22 @@ export const ResidentDetails = (props) => {
         } else if (key === 'linkedin') {
           elems.push(<input placeholder="Set LinkedIn Profile Link Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
         } else if (key === 'photo') {
-          elems.push(<input placeholder="Set Photo Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
+          elems.push(<input type="file" accept="image/*" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
         } else if (key === 'organization') {
           elems.push(<input placeholder="Set Organization Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)} />);
         } else if (key === 'industry' && props.user['organization'] !== '') {
           elems.push(
-            <>
-              <label htmlFor="industry-type">Set Industry Here</label>
+            <form id="industryMenu">
               <select name='industry-type' id='industry-type' value={props.user[key]} onChange={(e) => props.changeInput(e, key)}>
-                <option value="SWE">Software Engineer</option>
-                <option value="HWE">Hardware Engineer</option>
-                <option value="DS">Data Science</option>
-                <option value="PM">Product Management</option>
-                <option value="fintech">Finance/Fintech</option>
-                <option value="research">Research</option>
-                <option value="misc">Non-tech</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Hardware Engineer">Hardware Engineer</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Product Management">Product Management</option>
+                <option value="Finance/Fintech">Finance/Fintech</option>
+                <option value="Research">Research</option>
+                <option value="Non-tech">Non-tech</option>
               </select>
-            </>
+            </form>
           );
         } else if (key === 'message') {
           elems.push(<input placeholder="Set Message Here" value={props.user[key]} onChange={(e) => props.changeInput(e, key)}/>);
@@ -46,17 +45,6 @@ export const ResidentDetails = (props) => {
   return (
     <div className="ResidentDetails">
       {elems}
-      {/* <label htmlFor="industry-type"></label>
-              <select name='industry-type' id='industry-type' value={props.user['industry']} onChange={(e) => props.changeInput(e, 'industry')}>
-                <option value="SWE">Software Engineer</option>
-                <option value="HWE">Hardware Engineer</option>
-                <option value="DS">Data Science</option>
-                <option value="PM">Product Management</option>
-                <option value="fintech">Finance/Fintech</option>
-                <option value="research">Research</option>
-                <option value="misc">Non-tech</option>
-              </select>
-              <input placeholder="Set Message Here" value={props.user['message']} onChange={(e) => props.changeInput(e, 'message')}/> */}
       <button className="SaveButton" onClick={props.saveFunction}>Save</button>
       <button className="LogOutButton" onClick={() => {
         document.cookie = 'userId=0; path=/; max-age=0;';
