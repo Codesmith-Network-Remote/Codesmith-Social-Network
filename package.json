@@ -15,7 +15,10 @@
   },
   "jest": {
     "verbose": true,
-    "reporters": ["default", "github-actions"]
+    "reporters": [
+      "default",
+      "github-actions"
+    ]
   },
   "author": "Nick Krug",
   "license": "ISC",
