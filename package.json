@@ -14,7 +14,8 @@
     "url": "git+https://github.com/nekrug/deer-lab-site.git"
   },
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "reporters": ["default", "github-actions"]
   },
   "author": "Nick Krug",
   "license": "ISC",
