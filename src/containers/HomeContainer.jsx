@@ -7,6 +7,7 @@ import { HomePage } from '../components/HomePage.jsx';
 import { ResidentsContainer } from './ResidentsContainer.jsx';
 import { UserContainer } from './UserContainer.jsx';
 import { HiringContainer } from './HiringContainer';
+import { LookingContainer } from './LookingContainer.jsx';
 
 export const HomeContainer = (props) => {
   const [active, setActive] = useState('Home');
@@ -28,6 +29,8 @@ export const HomeContainer = (props) => {
     elem = <div className="DisplayBox"><UserContainer changeAuthenticated={props.changeAuthenticated} userId={userId}/></div>;
   } else if (active === 'Hiring') {
     elem = <div className="DisplayBox"><HiringContainer changeAuthenticated={props.changeAuthenticated} userId={userId}/></div>;
+  } else if (active === 'Looking') {
+    elem = <div className="DisplayBox"><LookingContainer changeAuthenticated={props.changeAuthenticated} userId={userId}/></div>;
   }
 
   return (
