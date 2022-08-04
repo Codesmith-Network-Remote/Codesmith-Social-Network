@@ -20,3 +20,11 @@ return request(server)
 });
 });
 
+describe('Supertest', () => {
+  describe('example supertest test', () => {
+    it('boolean true should be truthy', () => {
+      expect(true).toBeTruthy();
+    });
+  })
+})
+

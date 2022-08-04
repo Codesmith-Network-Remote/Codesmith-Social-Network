@@ -16,7 +16,11 @@
   "jest": {
     "verbose": true,
     "globalSetup": "./jest-setup.js",
-    "globalTeardown": "./jest-teardown.js"
+    "globalTeardown": "./jest-teardown.js",
+    "reporters": [
+      "default",
+      "github-actions"
+    ]
   },
   "author": "Nick Krug",
   "license": "ISC",

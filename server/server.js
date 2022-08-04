@@ -29,6 +29,16 @@ app.use('/login', oauthRouter);
 
 app.use('/verifyuser', verifyRouter);
 
+// Serve index.html
+app.get('/', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../src/', 'index.html'));
+});
+
+// Serve bundle.js
+app.get('/dist/bundle.js', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../dist/', 'bundle.js'));
+});
+
 // Once we have React router working, this will keep the page from breaking if you're not on the homepage.
 app.get('/*', (req, res) => {
   return res.status(200).redirect('/');
