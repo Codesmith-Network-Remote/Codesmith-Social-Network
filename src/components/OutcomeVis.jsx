@@ -1,44 +1,44 @@
-// import React, { Component, useEffect } from 'react';
-// // import chart from 'chart';
+import React, { Component, useEffect } from 'react';
+import { Pie } from 'react-chartjs-2';
 
-// export const OutcomeVis = (props) => {
+export const OutcomeVis = (props) => {
+  const { outcomeOrgs, outcomeInds } = props;
+  const orgLabels = outcomeOrgs.map((elem) => elem.organization);
+  const indLabels = outcomeInds.map((elem) => elem.industry);
 
-//   const labels = [...props.O];
+  const orgChart = {
+    labels: orgLabels,
+    datasets: [{
+      label: 'Alumni Outcomes By Organization',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: outcomeOrgs
+    }]
+  };
 
-//   const data = {
-//     labels: labels,
-//     datasets: [
-//       {
-//         label: 'Alumni Outcomes By Organization',
-//         backgroundColor: 'rgb(255, 99, 132)',
-//         borderColor: 'rgb(255, 99, 132)',
-//         data: [0, 10, 5, 2, 20, 30, 45],
-//       },
-//       {
-//         label: 'Alumni Outcomes By Industry',
+  const indChart = {
+    labels: indLabels,
+    datasets: [{
+      label: 'Alumni Outcomes By Industry',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: outcomeInds
+    }]
+  };
 
-//       },
+  const options = {
+    layout: {
+      padding: 20
+    },
+    parsing: {
+      key: 'count'
+    }
+  };
 
-//     ]
-//   };
-
-//   const config = {
-//     type: 'line',
-//     data: data,
-//     options: {}
-//   };
-
-//   useEffect(() => {
-    
-//     const script = document.querySelector('script');
-//     script.type = 'text/javascript';
-
-//   });
-
-//   return (
-//     <div>
-//       <canvas id="datavis"></canvas>
-//       <script></script>
-//     </div>
-//   )
-// }
+  return (
+    <div className="Cohortbox">
+      <Pie data={orgChart} options={options}/>
+      <Pie data={indChart} options={options}/>
+    </div>
+  );
+};

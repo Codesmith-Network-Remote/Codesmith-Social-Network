@@ -3,6 +3,7 @@ import { NavBar } from './NavBarContainer.jsx';
 import { CohortContainer } from './CohortContainer.jsx';
 import { OrganizationContainer } from './OrganizationContainer.jsx';
 import { IndustryContainer } from './IndustryContainer.jsx';
+import { OutcomeContainer } from './OutcomeContainer.jsx';
 import { SearchContainer } from './SearchContainer.jsx';
 import { HomePage } from '../components/HomePage.jsx';
 import { ResidentsContainer } from './ResidentsContainer.jsx';
@@ -31,6 +32,8 @@ export const HomeContainer = (props) => {
     elem = <div className="DisplayBox"><UserContainer changeAuthenticated={props.changeAuthenticated} userId={userId}/></div>;
   } else if (active === 'Hiring') {
     elem = <div className="DisplayBox"><HiringContainer changeAuthenticated={props.changeAuthenticated} userId={userId}/></div>;
+  } else if (active === 'Outcome') {
+    elem = <div className="DisplayBox"><OutcomeContainer /></div>;
   }
 
   return (

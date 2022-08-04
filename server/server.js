@@ -10,7 +10,7 @@ const residentRouter = require('./routes/resident');
 const organizationRouter = require('./routes/organization');
 const industryRouter = require('./routes/industry');
 const cohortRouter = require('./routes/cohort');
-const outcomeRouter = require('./routes/outcome')
+const outcomeRouter = require('./routes/outcome');
 const oauthRouter = require('./routes/oauthRouter');
 const verifyRouter = require('./routes/verifyRouter');
 

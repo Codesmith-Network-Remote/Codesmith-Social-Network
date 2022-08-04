@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import { ResidentsListContainer } from './ResidentsListContainer';
+import { OutcomeContainer } from './OutcomeContainer';
 
 export const OrganizationContainer = (props) => {
   const [orgList, setOrgList] = useState([]);
