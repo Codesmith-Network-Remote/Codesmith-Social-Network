@@ -1,3 +1,10 @@
+describe('Database', () => {
+  describe('example database test', () => {
+    it('boolean true should be truthy', () => {
+      expect(true).toBeTruthy();
+    });
+  })
+})
 
 // //need uri for testing table?
 // //before each: create table and create new pool
