@@ -14,9 +14,6 @@ export const OutcomeVis = (props) => {
       indLabels.push(outcomeInds[i].industry);
     }
   }
-  // const orgLabels = outcomeOrgs.map((elem) => elem.organization);
-  // const orgLabels = [...outcomeOrgs]
-  // const indLabels = outcomeInds.map((elem) => elem.industry);
 
   const orgChart = {
     labels: orgLabels,
