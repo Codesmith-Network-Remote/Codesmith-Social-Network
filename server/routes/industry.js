@@ -2,13 +2,13 @@ const express = require('express');
 const userControllers = require('../controllers/UserControllers');
 const router = express.Router();
 
-router.get('/', userControllers.loadOrgs, (req, res) => {
+router.get('/', userControllers.loadIndustries, (req, res) => {
   console.log('got to this endpoint');
-  return res.status(200).json(res.locals.orgsLoad);
+  return res.status(200).json(res.locals.industriesLoad);
 });
 
-//find residents by organization 
-router.post('/residents', userControllers.findUserByOrganization, (req, res) => {
+//find residents by organizaiton 
+router.post('/residents', userControllers.findUserByIndustry, (req, res) => {
   return res.status(200).json(res.locals.usersFound);
 });
 

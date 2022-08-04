@@ -12,9 +12,10 @@ export const HiringDetails = (props) => {
     elems = hiringroles.map((e, i) => (
       <div className="HiringInputItem" key={`role-${i}`}>
         <input
+          placeholder="Enter position"
           value={hiringroles[i]}
-          onChange={(e) => props.changeInput(e, 'hiringroles', i)}
-        />
+          onChange={(e) => props.changeInput(e, 'hiringroles', i)}>
+        </input>
         <button onClick={(e) => props.deleteHiringRole(i)}> - </button>
       </div>
     ));
@@ -25,9 +26,10 @@ export const HiringDetails = (props) => {
     newElems = newroles.map((e, i) => (
       <div className="HiringInputItem" key={`newrole-${i}`}>
         <input
+          placeholder="Enter position"
           value={newroles[i]}
-          onChange={(e) => props.changeNewrole(e, i)}
-        />
+          onChange={(e) => props.changeNewrole(e, i)}>
+        </input>
         <div className="spacer" />
       </div>
     ));
@@ -36,7 +38,7 @@ export const HiringDetails = (props) => {
   return (
     <div className="HiringDetails">
       <h3>Are you hiring?</h3>
-      <h5>{"Yes, I'm hiring for..."}</h5>
+      <h5>{'Yes, I\'m hiring for...'}</h5>
       {elems}
       {newElems}
       <div className='HiringDetailsBottomButtons'>

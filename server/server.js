@@ -8,7 +8,9 @@ const app = express();
 const PORT = 3000;
 const residentRouter = require('./routes/resident');
 const organizationRouter = require('./routes/organization');
+const industryRouter = require('./routes/industry');
 const cohortRouter = require('./routes/cohort');
+const outcomeRouter = require('./routes/outcome');
 const oauthRouter = require('./routes/oauthRouter');
 const verifyRouter = require('./routes/verifyRouter');
 
@@ -23,7 +25,11 @@ app.use('/residents', residentRouter);
 
 app.use('/organizations', organizationRouter);
 
+app.use('/industries', industryRouter);
+
 app.use('/cohort', cohortRouter);
+
+app.use('/outcomes', outcomeRouter)
 
 app.use('/login', oauthRouter);
 

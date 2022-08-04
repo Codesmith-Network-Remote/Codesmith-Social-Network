@@ -13,6 +13,7 @@ export const ResidentsListContainer = (props) => {
         name={props.residentList[i].name} 
         photo={props.residentList[i].photo} 
         organization={props.residentList[i].organization} 
+        industry={props.residentList[i].industry} 
         cohort={props.residentList[i].cohort} 
         linkedin={props.residentList[i].linkedin} 
       />);

@@ -17,13 +17,25 @@ userControllers.loadUsers = async (req, res, next) => {
 
 // Load list of all organizations when orgs tab is clicked.
 userControllers.loadOrgs = async (req, res, next) => {
-  const text = 'SELECT DISTINCT organization FROM residents ORDER BY organization';
+  const text = 'SELECT organization, COUNT(DISTINCT organization) FROM residents GROUP BY organization';
   try {
     const orgsLoad = await db.query(text);
     res.locals.orgsLoad = orgsLoad.rows;
     return next();
   } catch (error) {
     return next({ log: `userControllers.loadOrgs error: ${error}`, message: 'Error found @ userControllers.loadOrgs' });
+  }
+};
+
+// Load list of all industries when industries tab is clicked.
+userControllers.loadIndustries = async (req, res, next) => {
+  const text = 'SELECT industry, COUNT(DISTINCT industry) FROM residents GROUP BY industry';
+  try {
+    const industriesLoad = await db.query(text);
+    res.locals.industriesLoad = industriesLoad.rows;
+    return next();
+  } catch (error) {
+    return next({ log: `userControllers.industriesLoad error: ${error}`, message: 'Error found @ userControllers.industriesLoad' });
   }
 };
 
@@ -62,6 +74,7 @@ userControllers.findUserByName = async (req, res, next) => {
     WHERE LOWER(name) LIKE LOWER('%${req.body.name}%') 
     or LOWER(cohort) LIKE LOWER('%${req.body.name}%')
     or LOWER(organization) LIKE LOWER('%${req.body.name}%')
+    or LOWER(industry) LIKE LOWER('%${req.body.name}%')
     ORDER BY name`;
   try {
     const userFound = await db.query(text);
@@ -100,7 +113,22 @@ userControllers.findUserByOrganization = async (req, res, next) => {
   }
 };
 
-//Controller to find users that work at a specific cohort
+//Controller to find users that work in a specific industry
+
+userControllers.findUserByIndustry = async (req, res, next) => {
+  console.log(req.body);
+  const text = `SELECT * FROM residents WHERE LOWER(industry)=LOWER('${req.body.industry}')`;
+
+  try {
+    const usersFound = await db.query(text);
+    res.locals.usersFound = usersFound.rows;
+    return next();
+  } catch (error) {
+    return next({ log: `userControllers.findUserByIndustry error: ${error}`, message: 'Erorr found @ userControllers.findUserByIndustry' });
+  }
+};
+
+//Controller to find users from a specific cohort
 
 userControllers.findUserByCohort = async (req, res, next) => {
   console.log(req.body.cohort);
@@ -148,8 +176,8 @@ userControllers.createUser = async (req, res, next) => {
       name,
       email,
     } = res.locals;
-    const values = [name, '', '', '', '', '', email];
-    const text = 'INSERT INTO residents (name, photo, cohort, organization, linkedin, message, email) VALUES($1, $2, $3, $4, $5, $6, $7)';
+    const values = [name, '', '', '', '', '', '', email];
+    const text = 'INSERT INTO residents (name, photo, cohort, organization, industry, linkedin, message, email) VALUES($1, $2, $3, $4, $5, $6, $7, $8)';
     await db.query(text, values);
     const userCreated = await db.query('SELECT id FROM residents ORDER BY id DESC LIMIT 1');
     console.log(userCreated.rows[0].id);
@@ -164,7 +192,7 @@ userControllers.createUser = async (req, res, next) => {
 };
 
 //update user requiring @value ( req.body.id )
-//req.body must also have name, photo, cohort, organization and linkedin to be not undefined
+//req.body must also have name, photo, cohort, organization, industry, and linkedin to be not undefined
 //@value ( res.locals.updateUser ) return updated user
 userControllers.updateUser = async (req, res, next) => {
   try {
@@ -173,13 +201,13 @@ userControllers.updateUser = async (req, res, next) => {
       photo,
       cohort,
       organization,
+      industry,
       linkedin, 
       email,
       hiringroles,
     } = req.body.user;
-    const values = [name, photo, cohort, organization, linkedin];
-    console.log(hiringroles.join(', '));
-    const text = `UPDATE residents SET name='${name}', photo='${photo}', cohort='${cohort}', organization='${organization}', linkedin='${linkedin}', email='${email}', hiringroles=ARRAY['${hiringroles.join('\', \'')}'] WHERE id='${req.body.id}' RETURNING *`;
+    const values = [name, photo, cohort, organization, industry, linkedin];
+    const text = `UPDATE residents SET name='${name}', photo='${photo}', cohort='${cohort}', organization='${organization}', industry='${industry}', linkedin='${linkedin}', email='${email}', hiringroles=ARRAY['${hiringroles.join('\', \'')}'] WHERE id='${req.body.id}' RETURNING *`;
     const updatedUser = await db.query(text);
     res.locals.updatedUser = updatedUser;
     return next();
@@ -187,6 +215,7 @@ userControllers.updateUser = async (req, res, next) => {
     return next({ log: `userControllers.updateUser error: ${err}`, message: 'Error found @ userControllers.updateUser' });
   }
 };
+
 // Register new user
 userControllers.registerUser = async (req, res, next) => {
   try {
@@ -194,9 +223,10 @@ userControllers.registerUser = async (req, res, next) => {
       id,
       cohort,
       organization,
+      industry,
       linkedin
     } = req.body;
-    const text = `UPDATE residents SET cohort='${cohort}', organization='${organization}', linkedin='${linkedin}' WHERE id='${id}'`;
+    const text = `UPDATE residents SET cohort='${cohort}', organization='${organization}', industry='${industry}', linkedin='${linkedin}' WHERE id='${id}'`;
     const registeredUser = await db.query(text);
     res.locals.registeredUser = registeredUser;
     return next();
