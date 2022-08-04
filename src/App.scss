@@ -364,6 +364,69 @@ body {
     color: rgb(48, 48, 48);
     background-color: rgb(230, 230, 230);
     box-shadow: 0px 10px 10px rgb(170, 175, 185);
+
+    .standardButton {
+      margin: 10px;
+      width: 150px;
+      height: 40px;
+      border-style: none;
+      border-radius: 5px;
+      background: rgb(130, 130, 130);
+      color: white;
+    }
+    .standardButton:hover {
+      background-color: rgb(140, 140, 140);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2;
+    }
+
+    .confirm-box {
+      padding: 60px;
+      position: absolute;
+      width: 30%;
+      height: 30%;
+      top: 35%;
+      left: 35%;
+      text-align: center;
+      justify-content: center;
+      border-style: none;
+      border-radius: 10px;
+      background: rgb(150, 150, 150);
+      box-shadow: 0px 10px 10px rgb(50, 50, 50);
+    }
+
+    .deleteConfirm {
+      margin: 10px;
+      width: 80px;
+      height: 40px;
+      border-style: none;
+      border-radius: 5px;
+      background: rgb(130, 130, 130);
+      color: white;
+    }
+    .deleteConfirm:hover {
+      background-color: rgb(140, 140, 140);
+    }
+
+    .deleteCancel {
+      margin: 10px;
+      width: 80px;
+      height: 40px;
+      border-style: none;
+      border-radius: 5px;
+      background: rgb(79, 163, 227);
+    }
+    .deleteCancel:hover {
+      background-color: rgb(69, 153, 217);
+    }
   }
   h3 { margin-top: 2vh;}
 }
