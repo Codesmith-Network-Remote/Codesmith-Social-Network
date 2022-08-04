@@ -46,8 +46,8 @@ export const OrganizationContainer = (props) => {
           <div>
             <button className="BackButton" onClick={() => setActive(false)}>Back</button>
             <div className="Cohortbox">
-            <ResidentsListContainer residentList={residents} />
-          </div>
+              <ResidentsListContainer residentList={residents} />
+            </div>
           </div>
       }
     </div>

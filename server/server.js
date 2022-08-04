@@ -8,6 +8,7 @@ const app = express();
 const PORT = 3000;
 const residentRouter = require('./routes/resident');
 const organizationRouter = require('./routes/organization');
+const industryRouter = require('./routes/industry');
 const cohortRouter = require('./routes/cohort');
 const oauthRouter = require('./routes/oauthRouter');
 const verifyRouter = require('./routes/verifyRouter');
@@ -22,6 +23,8 @@ app.use(cors({origin: 'http://localhost:8080'}));
 app.use('/residents', residentRouter);
 
 app.use('/organizations', organizationRouter);
+
+app.use('/industries', industryRouter);
 
 app.use('/cohort', cohortRouter);
 

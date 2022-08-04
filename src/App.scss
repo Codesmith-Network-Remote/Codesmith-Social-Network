@@ -67,7 +67,7 @@ body {
 
   .LogInButton:active {
     background-color: #ffbf00;
-}
+  }
 }
 
 .bigger {
@@ -76,7 +76,7 @@ body {
 
 .SetCohort {
   width: 100vw;
-  height: 120vh;
+  height: 135vh;
   z-index: 1000;
 
   background-color: #020C25;
@@ -91,7 +91,7 @@ body {
   margin-right: auto;
   margin-top: 0vh;
 
-  padding: 20px;
+  padding: 10px;
 
 
 
@@ -119,8 +119,12 @@ body {
     font-size: 15px !important;
   }
 
+  #emptyOrg {
+    font-size: 12px !important;
+  }
+
   #orgSelect {
-    padding: 10px;
+    padding: 6px;
     width: 16vw;
     height: 5vh;
     margin-bottom: 4vh;
@@ -129,8 +133,18 @@ body {
     font-size: 15px !important;
   }
 
+  #industrySelect {
+    padding: 6px;
+    width: 20vw;
+    height: 5vh;
+    margin-bottom: 4vh;
+    margin-right: 30px;
+    border-radius: 8px;
+    font-size: 15px !important;
+  }
+
   #linkedSelect {
-    padding: 10px;
+    padding: 6px;
     width: 13.2vw;
     height: 5vh;
     margin-bottom: 4vh;
@@ -140,7 +154,7 @@ body {
   }
 
   #cohortNumberSelect {
-    padding: 10px;
+    padding: 6px;
     width: 6vw;
     height: 5vh;
     margin-bottom: 4vh;
@@ -172,14 +186,15 @@ body {
       font-family: Verdana, Tahoma, sans-serif;
       font-weight: 500;
     }
-      button:hover {
-    background-color: #009fee;
-    transition: 0.3s;
-  }
 
-  button:active {
-    background-color: #0180c0;
-}
+    button:hover {
+      background-color: #009fee;
+      transition: 0.3s;
+    }
+
+    button:active {
+      background-color: #0180c0;
+    }
   }
 }
 

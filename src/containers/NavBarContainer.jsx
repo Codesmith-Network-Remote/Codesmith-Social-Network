@@ -18,6 +18,7 @@ export const NavBar = (props) => {
       <div className="NavItems">
         <button className="OrgButton" onClick={() => clickFunction('Residents')}>Residents</button>
         <button className="OrgButton" onClick={() => clickFunction('Organization')}>Organization</button>
+        <button className="IndustryButton" onClick={() => clickFunction('Industry')}>Industry</button>
         <button className="CohortButton" onClick={() => clickFunction('Cohort')}>Cohort</button>
         <button className="UserButton" onClick={() => clickFunction('User')}>User</button>
       </div>

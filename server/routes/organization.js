@@ -7,7 +7,7 @@ router.get('/', userControllers.loadOrgs, (req, res) => {
   return res.status(200).json(res.locals.orgsLoad);
 });
 
-//find residents by organizaiton 
+//find residents by organization 
 router.post('/residents', userControllers.findUserByOrganization, (req, res) => {
   return res.status(200).json(res.locals.usersFound);
 });
