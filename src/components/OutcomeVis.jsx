@@ -22,7 +22,7 @@ export const OutcomeVis = (props) => {
     labels: orgLabels,
     datasets: [{
       label: 'Alumni Outcomes By Organization',
-      backgroundColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'coral',
       borderColor: 'white',
       data: outcomeOrgs
     }]
@@ -32,7 +32,7 @@ export const OutcomeVis = (props) => {
     labels: indLabels,
     datasets: [{
       label: 'Alumni Outcomes By Industry',
-      backgroundColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'blue',
       borderColor: 'white',
       data: outcomeInds
     }]
