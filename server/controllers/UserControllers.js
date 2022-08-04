@@ -35,7 +35,7 @@ userControllers.loadCohorts = async (req, res, next) => {
     res.locals.cohortsLoad = cohortsLoad.rows;
     return next();
   } catch (error) {
-    return next({ log: `userControllers.loadCohorts error: ${error}`, message: 'Erorr found @ userControllers.loadCohorts' });
+    return next({ log: `userControllers.loadCohorts error: ${error}`, message: 'Error found @ userControllers.loadCohorts' });
   }
 };
 
@@ -48,7 +48,7 @@ userControllers.loadUserProfile = async (req, res, next) => {
     res.locals.profile = profile.rows;
     return next();
   } catch (error) {
-    return next({ log: `userControllers.loadUserProfile error: ${error}`, message: 'Erorr found @ userControllers.loadUserProfile' });
+    return next({ log: `userControllers.loadUserProfile error: ${error}`, message: 'Error found @ userControllers.loadUserProfile' });
   }
 };
 
@@ -68,7 +68,7 @@ userControllers.findUserByName = async (req, res, next) => {
     res.locals.userFound = userFound.rows;
     return next();
   } catch (error) {
-    return next({ log: `userControllers.findUser error: ${error}`, message: 'Erorr found @ userControllers.findUser' });
+    return next({ log: `userControllers.findUser error: ${error}`, message: 'Error found @ userControllers.findUser' });
   }
 };
 
@@ -81,7 +81,7 @@ userControllers.findUserById = async (req, res, next) => {
     res.locals.userFound = userFound.rows[0];
     return next();
   } catch (error) {
-    return next({ log: `userControllers.findUser error: ${error}`, message: 'Erorr found @ userControllers.findUser' });
+    return next({ log: `userControllers.findUser error: ${error}`, message: 'Error found @ userControllers.findUser' });
   }
 };
 
@@ -96,7 +96,7 @@ userControllers.findUserByOrganization = async (req, res, next) => {
     res.locals.usersFound = usersFound.rows;
     return next();
   } catch (error) {
-    return next({ log: `userControllers.findUserByOrganization error: ${error}`, message: 'Erorr found @ userControllers.findUserByOrganization' });
+    return next({ log: `userControllers.findUserByOrganization error: ${error}`, message: 'Error found @ userControllers.findUserByOrganization' });
   }
 };
 
@@ -111,7 +111,7 @@ userControllers.findUserByCohort = async (req, res, next) => {
     res.locals.usersFound = usersFound.rows;
     return next();
   } catch (error) {
-    return next({ log: `userControllers.findUserByCohort error: ${error}`, message: 'Erorr found @ userControllers.findUserByCohort' });
+    return next({ log: `userControllers.findUserByCohort error: ${error}`, message: 'Error found @ userControllers.findUserByCohort' });
   }
 };
 
@@ -134,7 +134,7 @@ userControllers.verifyUserExists = async (req, res, next) => {
     } 
     return next();
   } catch (error) {
-    return next({ log: `userControllers.verifyUserExists error: ${error}`, message: 'Erorr found @ userControllers.VerifyUserExists' });
+    return next({ log: `userControllers.verifyUserExists error: ${error}`, message: 'Error found @ userControllers.VerifyUserExists' });
 
   }
 };
@@ -159,7 +159,7 @@ userControllers.createUser = async (req, res, next) => {
     res.locals.userCreated = userCreated;
     return next();
   } catch (err) {
-    return next({ log: `userControllers.createUser error: ${err}`, message: 'Erorr found @ userControllers.createUser' });
+    return next({ log: `userControllers.createUser error: ${err}`, message: 'Error found @ userControllers.createUser' });
   }
 };
 
@@ -184,7 +184,7 @@ userControllers.updateUser = async (req, res, next) => {
     res.locals.updatedUser = updatedUser;
     return next();
   } catch (err) {
-    return next({ log: `userControllers.updateUser error: ${err}`, message: 'Erorr found @ userControllers.updateUser' });
+    return next({ log: `userControllers.updateUser error: ${err}`, message: 'Error found @ userControllers.updateUser' });
   }
 };
 // Register new user
@@ -201,7 +201,7 @@ userControllers.registerUser = async (req, res, next) => {
     res.locals.registeredUser = registeredUser;
     return next();
   } catch (err) {
-    return next({ log: `userControllers.registerUser error: ${err}`, message: 'Erorr found @ userControllers.registerUser' });
+    return next({ log: `userControllers.registerUser error: ${err}`, message: 'Error found @ userControllers.registerUser' });
   }
 };
 
@@ -214,7 +214,7 @@ userControllers.deleteUser = async (req, res, next) => {
     
     return next();
   } catch (err) {
-    return next({ log: `userControllers.deleteUser error: ${err}`, message: 'Erorr found @ userControllers.deleteUser' });
+    return next({ log: `userControllers.deleteUser error: ${err}`, message: 'Error found @ userControllers.deleteUser' });
   }
 };
 
