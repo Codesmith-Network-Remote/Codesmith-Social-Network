@@ -17,7 +17,7 @@ userControllers.loadUsers = async (req, res, next) => {
 
 // Load list of all organizations when orgs tab is clicked.
 userControllers.loadOrgs = async (req, res, next) => {
-  const text = 'SELECT organization, COUNT(DISTINCT organization) FROM residents GROUP BY organization';
+  const text = 'SELECT organization, COUNT(organization) FROM residents GROUP BY organization';
   try {
     const orgsLoad = await db.query(text);
     res.locals.orgsLoad = orgsLoad.rows;
@@ -29,7 +29,7 @@ userControllers.loadOrgs = async (req, res, next) => {
 
 // Load list of all industries when industries tab is clicked.
 userControllers.loadIndustries = async (req, res, next) => {
-  const text = 'SELECT industry, COUNT(DISTINCT industry) FROM residents GROUP BY industry';
+  const text = 'SELECT industry, COUNT(industry) FROM residents GROUP BY industry';
   try {
     const industriesLoad = await db.query(text);
     res.locals.industriesLoad = industriesLoad.rows;
