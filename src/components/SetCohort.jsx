@@ -17,6 +17,7 @@ export const SetCohort = (props) => {
   //Set Cohort and make a PATCH/PUT request to change user's cohort
   function cohortSet() {
     //FETCH REQUEST BELOW
+    console.log(`Attemping to set cohort...`)
     fetch('http://localhost:8080/residents/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -26,7 +27,8 @@ export const SetCohort = (props) => {
       .then(result => {
         console.log(result);
         props.setCohort(true);
-      }, []);
+      }, [])
+      .catch(err => {console.log(`failed to set cohort: ${err}`)});
     //Change cohortIsSet to true if successful
   }
 

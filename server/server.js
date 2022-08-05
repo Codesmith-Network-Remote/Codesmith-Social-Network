@@ -34,16 +34,38 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
   clientID: GITHUB_CLIENT_ID,
   clientSecret: GITHUB_CLIENT_SECRET,
-  callbackURL: 'http://localhost:8080/auth/github/callback'
-},
-function(accessToken, refreshToken, profile, done) {
-  console.log(profile);
-  const user = { gh_profile: profile._json.html_url, email: profile._json.email, name: profile._json.name, gh_organization: profile._json.company, gh_login: profile._json.login};
-  console.table(user);
-  // userControllers.verifyUserExists({})
-  githubFindOrCreate(user, function (err, user) {
-    return done(err, user);
-  });
+  callbackURL: 'http://localhost:8080/auth/github/callback',
+  scope: [ 'user:email' ]
+}, async function verify(accessToken, refreshToken, profile, done) {
+  console.log(`Got profile from GH`, profile);
+  const user = { gh_profile: profile._json.html_url, email: profile.emails[0].value, name: profile._json.name, gh_organization: profile._json.company, gh_login: profile._json.login};
+  const gh_login = user.gh_login;
+  const text = 'SELECT id FROM residents WHERE gh_login = $1';
+  // let shouldSkipCreateUser = undefined;
+
+  try {
+    const idFound = await db.query(text, [gh_login]);
+    if (idFound.rows.length) {
+      console.log('We found an id',idFound.rows[0]);
+      return done(null, idFound.rows[0]);
+      // cookie('userId', idFound.rows[0].id);
+    } else {
+      console.log('No such user exists. Creating one');
+      // shouldSkipCreateUser = false;
+      const values = [user.name, '', '', '', '', '', user.email, user.gh_login, user.gh_profile];
+      const text = 'INSERT INTO residents (name, photo, cohort, organization, linkedin, message, email, gh_login, gh_profile) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+      await db.query(text, values);
+      const userCreated = await db.query('SELECT id FROM residents ORDER BY id DESC LIMIT 1');
+      console.log(userCreated.rows[0].id);
+  
+      // res.cookie('userId', userCreated.rows[0].id);
+      
+      return done(null, userCreated.rows[0]);
+
+    } 
+  } catch (error) {
+    return done({ log: `userControllers.verifyUserExists error: ${error}`, message: 'Erorr found @ userControllers.VerifyUserExists' });
+  }
 }));
 
 
@@ -66,7 +88,8 @@ const  githubFindOrCreate = async (user, callback) => {
       const text = 'INSERT INTO residents (name, photo, cohort, organization, linkedin, message, email, gh_login, gh_profile) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)';
       await db.query(text, values);
       const userCreated = await db.query('SELECT id FROM residents ORDER BY id DESC LIMIT 1');
-      console.log(userCreated.rows[0].id);
+      console.log('Created a user: ');
+      console.log(userCreated.rows[0]);
   
       // res.cookie('userId', userCreated.rows[0].id);
       
@@ -91,9 +114,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({origin: 'http://localhost:8080'}));
-// app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.session());
 
 
 app.use('/residents', ensureAuthenticated, residentRouter);
@@ -122,7 +145,10 @@ app.get('/auth/github',
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/failedlogin' }),
   function(req, res) {
-    // Successful authentication, redirect home.
+    // console.log('req', req)
+    // console.log('res', res)
+    res.cookie('userId', req.user.id);
+    res.cookie('gh-auth', 1);
     res.redirect('/');
   });
 

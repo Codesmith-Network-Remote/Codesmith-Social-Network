@@ -16,6 +16,12 @@ export default function MainContainer() {
   };
 
   useEffect(() => {
+    console.log('Checking cookies...');
+    console.log(document.cookie);
+    // console.log('Turning on GH failsafe...')
+    // changeAuthenticated(true);
+    // setCohort(true);
+    // return;
     // On page load, we need to check if linkedInAccessToken and User ID cookies are set
     // if so, we need to redirect to the server to check if the cookie is valid
     // if the cookie is valid, we need to set isAuthenticated to true on the client side
@@ -33,12 +39,14 @@ export default function MainContainer() {
           console.log(res);
           if (res.status === 200) changeAuthenticated(true);
         });
-    } else if (getCookie('connect.sid')) {
+    } else if (getCookie('gh-auth') && getCookie('userId')) {
+      console.log(`Found GH auth and userId cookies`);
       changeAuthenticated(true);
     } else {
       changeAuthenticated(false);
     }
     if (getCookie('userId')) {
+      console.log('Found userId cookie: ', getCookie('userId'));
       fetch('http://localhost:8080/verifyuser/complete')
         .then(res => res.json())
         .then(res => {
